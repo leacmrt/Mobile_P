@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="History">History</string>
+    <string name="New">New Match</string>
+    <string name="Menu">Menu</string>
+    <string name="Loggout">Loggout</string>
+    <string name="SwitchLang">French</string>
+    <string name="SwitchLand">Landscape</string>
+    <string name="SwitchDark">DarkMode </string>
+    <string name="Add">ADD </string>
+    <string name="AddName1">Name 1st team </string>
+    <string name="AddName2">Name 2nd team </string>
+    <string name="Addloc">LOCATION </string>
+    <string name="Addpicture">PICTURE </string>
+    <string name="Strengh">Strength </string>
+    <string name="Score">Score</string>
+    <string name="Back">BACK</string>
+    <string name="Recap">SUMMARY OF THE MATCH</string>
+    <string name="Graph">STATISTICS</string>
+    <string name="title_activity_stat">Stat</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

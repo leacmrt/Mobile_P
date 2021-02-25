@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Projet</string>
+    <string name="action_settings">Paramètres</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Premier Fragment</string>
+    <string name="second_fragment_label">Deuxième Fragment</string>
+    <string name="next">Suivant</string>
+    <string name="previous">Précedant</string>
+    <string name="History">Enregistrements</string>
+    <string name="New">Nouveau Match</string>
+    <string name="Menu">Menu</string>
+    <string name="Loggout">Deconnexion</string>
+    <string name="SwitchLang">Anglais</string>
+    <string name="SwitchLand">Paysage</string>
+    <string name="SwitchDark">Mode Sombre</string>
+    <string name="Add">Ajouter </string>
+    <string name="AddName1">Nom Equipe 1 </string>
+    <string name="AddName2">Nom Equipe 2 </string>
+    <string name="Addloc">LOCALISATION </string>
+    <string name="Addpicture">PHOTO </string>
+    <string name="Strengh">Force </string>
+    <string name="Score">Score</string>
+    <string name="Back">RETOUR</string>
+    <string name="Recap">RECAPITULATIF DU MATCH</string>
+    <string name="Graph">STATISTIQUES</string>
+</resources>
