@@ -34,24 +34,23 @@
                     android:id="@+id/button_first"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="44dp"
+                    android:layout_marginBottom="92dp"
                     android:text="@string/History"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintHorizontal_bias="0.872"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
                     android:id="@+id/NEW_Match"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="92dp"
+                    android:layout_marginBottom="28dp"
                     android:text="@string/Add"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.832"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent" />
-
 
                 <EditText
                     android:id="@+id/Critique"
@@ -91,7 +90,7 @@
                     android:layout_marginRight="2dp"
                     android:layout_marginBottom="416dp"
                     android:max="10"
-                    android:progress="3"
+                    android:progress="0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -114,9 +113,9 @@
                     android:id="@+id/button2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="156dp"
-                    android:layout_marginLeft="156dp"
-                    android:layout_marginBottom="92dp"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginBottom="176dp"
                     android:text="@string/Addpicture"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -125,9 +124,9 @@
                     android:id="@+id/TestScore"
                     android:layout_width="74dp"
                     android:layout_height="17dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginLeft="28dp"
-                    android:layout_marginTop="52dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="48dp"
                     android:ems="10"
                     android:text="@string/Score"
                     app:layout_constraintStart_toStartOf="parent"
@@ -136,13 +135,13 @@
                 <SeekBar
                     android:id="@+id/seekBarScore"
                     style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="279dp"
-                    android:layout_height="28dp"
+                    android:layout_width="295dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="28dp"
                     android:layout_marginLeft="28dp"
                     android:layout_marginTop="40dp"
                     android:max="10"
-                    android:progress="3"
+                    android:progress="0"
                     app:layout_constraintStart_toEndOf="@+id/TestScore"
                     app:layout_constraintTop_toBottomOf="@+id/Name2" />
 
@@ -189,6 +188,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="20dp" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="92dp"
+                    android:layout_marginStart="224dp"
+                    android:layout_marginLeft="224dp"
+                    android:layout_marginBottom="152dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

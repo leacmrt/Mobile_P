@@ -23,4 +23,5 @@
     <string name="Back">RETOUR</string>
     <string name="Recap">RECAPITULATIF DU MATCH</string>
     <string name="Graph">STATISTIQUES</string>
+    <string name="title_activity_maps">Maps</string>
 </resources>

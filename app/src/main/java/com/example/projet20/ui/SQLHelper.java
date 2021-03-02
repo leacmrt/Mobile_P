@@ -229,8 +229,8 @@ public class SQLHelper {
 
 
 
-        String SQL = "INSERT INTO match_data(Name1,Name2,Strength,Score,Date) "
-                + "VALUES(?,?,?,?,?)";
+        String SQL = "INSERT INTO match_data(Name1,Name2,Strength,Score,Date,Critique,Photo,Localisation) "
+                + "VALUES(?,?,?,?,?,?,?,?)";
 
 
         try {
