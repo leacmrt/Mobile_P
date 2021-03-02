@@ -29,14 +29,17 @@ import com.example.projet20.ui.home.HomeFragment;
 public class Match extends Fragment {
     private DBHelper mydb ;
     private static int CAMERA_REQUEST =123,LOC_REQUEST=121;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     String server_url = "http://10.0.2.2/connect.php";
     EditText Name1 =null;
     EditText Name2 = null;
+    EditText Crtique =null;
     SeekBar Score =null;
     SeekBar Strength = null;
     CalendarView dat =null;
     private  SQLHelper lala;
     ImageView imageView;
+    String date1;
     //Mysql d=null;
     public  Match()
     {}
@@ -59,9 +62,16 @@ public class Match extends Fragment {
         Strength =(SeekBar) view.findViewById(R.id.seekBarStrength);
         dat  = (CalendarView) view.findViewById(R.id.calendarView2); // get the reference of CalendarView
         imageView = (ImageView) view.findViewById(R.id.imageView);
-
+        Crtique= view.findViewById(R.id.Critique);
         lala = new SQLHelper();
-
+        //show the selected date as a toast
+        dat.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            //show the selected date as a toast
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+                date1= day + "/" + month + "/" + year;
+            }
+        });
         view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +90,7 @@ public class Match extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Match.this.getActivity(), Localisation.class);
-                startActivityForResult(intent1,LOC_REQUEST);            }
+                startActivityForResult(intent1, SECOND_ACTIVITY_REQUEST_CODE);        }
         });
 
         view.findViewById(R.id.NEW_Match).setOnClickListener(new View.OnClickListener() {
@@ -101,7 +111,7 @@ public class Match extends Fragment {
 
                                     public void run() {
 
-                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat);
+                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique);
                                         // lala.ajout(FirstFragment.this.getActivity(),FirstFragment.this.getContext(),Name1.getText().toString(),Name2.getText().toString(),Score.getProgress(),Strength.getProgress());
                                     }
 
@@ -139,6 +149,15 @@ public class Match extends Fragment {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             //Set the capture image to imageView
             imageView.setImageBitmap(photo);
+        }
+
+        Toast.makeText(Match.this.getActivity(),"la",Toast.LENGTH_LONG).show();
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                String returnString = data.getStringExtra("keyName");
+                Toast.makeText(Match.this.getActivity(),returnString,Toast.LENGTH_LONG).show();
+                Toast.makeText(Match.this.getActivity(),"lala",Toast.LENGTH_LONG).show();
+            }
         }
 }
 }

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -21,14 +22,14 @@ import java.util.ArrayList;
 public class SQLHelper {
 
     // JDBC driver name and database URL
-    EditText name1Txt,name2Txt;
+    EditText name1Txt,name2Txt,critiquetxt;
     SeekBar strengthSeek,scoreSeek;
     CalendarView date;
     ProgressDialog pd;
 
-    String name1,name2;
+    String name1,name2,critique1, dat;
     int strength , score;
-    long  dat;
+
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://10.0.2.2:3306/projet?autoReconnect=true";
@@ -199,7 +200,7 @@ public class SQLHelper {
         }
         return list;
     }
-    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1) {
+    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique) {
 
         a.runOnUiThread(new Runnable() {
             public void run() {
@@ -215,7 +216,7 @@ public class SQLHelper {
         //INPUT EDITTEXTS
         this.name1Txt=Name1;
         this.name2Txt=Name2;
-
+        this.critiquetxt=crtique;
         this.strengthSeek=Strength;
         this.scoreSeek=Score;
         this.date=dat1;
@@ -225,7 +226,8 @@ public class SQLHelper {
         name2=name2Txt.getText().toString();
         strength=strengthSeek.getProgress();
         score=scoreSeek.getProgress();
-        dat=date.getDate();
+        dat=date1;
+        critique1=critiquetxt.getText().toString();
 
 
 
@@ -264,7 +266,8 @@ public class SQLHelper {
             pstmt.setString(2, name2);
             pstmt.setInt(3, strength);
             pstmt.setInt(4, score);
-            pstmt.setDate(5,new Date(dat));
+            pstmt.setString(5,dat);
+            pstmt.setString(6,critique1);
 
             int affectedRows = pstmt.executeUpdate();
             a.runOnUiThread(new Runnable() {
@@ -353,6 +356,59 @@ public class SQLHelper {
             throwables.printStackTrace();
         }
         return "unknown";
+    }
+    public String getCritique(int id) throws ClassNotFoundException {
+        Connection conn = null;
+        Statement stmt = null;
+        String nametmp = null;
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT Critique FROM match_data WHERE id ="+id+";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("Critique");
+                nametmp=name;
+                return nametmp;
+            }
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return "unknown";
+    }
+
+    public Blob getPicture(int id) throws ClassNotFoundException {
+        Connection conn = null;
+        Statement stmt = null;
+        Blob nametmp = null;
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT Photo FROM match_data WHERE id ="+id+";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                Blob name = rs.getBlob("Photo");
+                nametmp=name;
+                return nametmp;
+            }
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     public int getScore(int id) throws ClassNotFoundException {

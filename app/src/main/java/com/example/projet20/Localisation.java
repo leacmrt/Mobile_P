@@ -43,7 +43,7 @@ public class Localisation extends FragmentActivity implements OnMapReadyCallback
     private String provider;
     private boolean geoLocPermit = false;
     private boolean geoLocRequest = false;
-
+    String result=" Unknown ";
     private TextView t;
     private final int PERMISSION_REQUEST_LOC = 0;
     private final int GPS_REQUEST_CODE = 1;
@@ -69,9 +69,9 @@ public class Localisation extends FragmentActivity implements OnMapReadyCallback
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",result);
-                setResult(Activity.RESULT_OK,returnIntent);
+                Intent intent = new Intent();
+                intent.putExtra("keyName", result);
+                setResult(RESULT_OK, intent);
                 finish();
                    }
 
@@ -233,6 +233,7 @@ public class Localisation extends FragmentActivity implements OnMapReadyCallback
             city = addresses.get(0).getLocality();
             country = addresses.get(0).getCountryName();
             postalCode = addresses.get(0).getPostalCode();
+            result = country+" - "+city;
         } catch (IOException e) {
             e.printStackTrace();
         }
