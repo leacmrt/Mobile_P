@@ -46,7 +46,9 @@ public class Match extends Fragment {
     private  SQLHelper lala;
     ImageView imageView;
     String date1;
+    Bitmap photo ;
     Blob image;
+    String returnString ="Inconnu";
     //Mysql d=null;
     public  Match()
     {}
@@ -118,7 +120,7 @@ public class Match extends Fragment {
 
                                     public void run() {
 
-                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,image,imageView);
+                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString);
                                         // lala.ajout(FirstFragment.this.getActivity(),FirstFragment.this.getContext(),Name1.getText().toString(),Name2.getText().toString(),Score.getProgress(),Strength.getProgress());
                                     }
 
@@ -153,7 +155,7 @@ public class Match extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             //Get the capture image
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            photo = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
 
@@ -163,7 +165,7 @@ public class Match extends Fragment {
         Toast.makeText(Match.this.getActivity(),"la",Toast.LENGTH_LONG).show();
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                String returnString = data.getStringExtra("keyName");
+                returnString = data.getStringExtra("keyName");
                 Toast.makeText(Match.this.getActivity(),returnString,Toast.LENGTH_LONG).show();
                 Toast.makeText(Match.this.getActivity(),"lala",Toast.LENGTH_LONG).show();
             }

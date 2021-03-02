@@ -3,6 +3,7 @@ package com.example.projet20.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
@@ -31,7 +33,7 @@ public class SQLHelper {
     ProgressDialog pd;
     ImageView img;
 
-    String name1,name2,critique1, dat;
+    String name1,name2,critique1, dat,loc;
     int strength , score;
 
 
@@ -204,7 +206,7 @@ public class SQLHelper {
         }
         return list;
     }
-    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique, Blob image, ImageView imageView) {
+    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique, Bitmap image, ImageView imageView, String returnString) {
 
         a.runOnUiThread(new Runnable() {
             public void run() {
@@ -230,9 +232,22 @@ public class SQLHelper {
         name2=name2Txt.getText().toString();
         strength=strengthSeek.getProgress();
         score=scoreSeek.getProgress();
-        dat=date1;
+
         critique1=critiquetxt.getText().toString();
-        Blob image1 = image;
+        loc=returnString;
+
+
+        if(date1==null)
+        {
+            long stuff = date.getDate();
+            Date jsp = new Date(stuff);
+            dat =jsp.toString();
+        }else dat=date1;
+        
+        Bitmap image1 = image;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image1.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] bArray = bos.toByteArray();
 
 
         String SQL = "INSERT INTO match_data(Name1,Name2,Strength,Score,Date,Critique,Photo,Localisation) "
@@ -265,6 +280,8 @@ public class SQLHelper {
 
                 PreparedStatement pstmt = conn.prepareStatement(SQL,
                         Statement.RETURN_GENERATED_KEYS)) {
+            Blob blob = pstmt.getConnection().createBlob();
+            blob.setBytes(1, bArray);
 
             pstmt.setString(1, name1);
             pstmt.setString(2, name2);
@@ -272,8 +289,8 @@ public class SQLHelper {
             pstmt.setInt(4, score);
             pstmt.setString(5,dat);
             pstmt.setString(6,critique1);
-            pstmt.setBlob(7,image1);
-            pstmt.setString(8,"essai");
+            pstmt.setBlob(7,blob);
+            pstmt.setString(8,loc);
 
             int affectedRows = pstmt.executeUpdate();
             a.runOnUiThread(new Runnable() {

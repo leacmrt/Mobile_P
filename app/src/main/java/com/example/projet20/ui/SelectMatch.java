@@ -1,6 +1,9 @@
 package com.example.projet20.ui;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,12 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projet20.R;
 
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -26,6 +32,9 @@ public class SelectMatch extends Fragment{
     ArrayList<Integer> listid;
     int position,id;
     String Name1,Name2,Critique,Local;
+    Blob im;
+    Bitmap pho;
+
     int Score,Strength;
     private SQLHelper lala;
 
@@ -57,6 +66,7 @@ public class SelectMatch extends Fragment{
             TextView textStrength = view.findViewById(R.id.textStrength);
             TextView textCritique = view.findViewById(R.id.textView13);
             TextView textLocal = view.findViewById(R.id.textView14);
+            ImageView photo =view.findViewById(R.id.imageView2);
             lala = new SQLHelper();
 
             new Thread(new Runnable() {
@@ -70,15 +80,28 @@ public class SelectMatch extends Fragment{
                         Strength = lala.getStrength(id);
                         Critique=lala.getCritique(id);
                         Local=lala.getLocalisation(id);
+                        im =lala.getPicture(id);
+
                         SelectMatch.this.getActivity().runOnUiThread(
                                 new Runnable() {
                                  public void run() {
+
+
+                                     byte[] blobAsBytes = new byte[0];
+                                     try {
+                                         blobAsBytes = im.getBytes(1, (int) im.length());
+                                         pho = BitmapFactory.decodeByteArray(blobAsBytes,0,blobAsBytes.length);
+                                     } catch (SQLException throwables) {
+                                         throwables.printStackTrace();
+                                     }
+
                                 textName1.setText(Name1);
                                 textName2.setText(Name2);
                                 textScore.setText(Integer.toString(Strength));
                                 textStrength.setText(Integer.toString(Score  ));
                                 textCritique.setText(Critique);
                                 textLocal.setText(Local);
+                                photo.setImageBitmap(pho);
                             }
                         });
                     } catch (ClassNotFoundException e) {
