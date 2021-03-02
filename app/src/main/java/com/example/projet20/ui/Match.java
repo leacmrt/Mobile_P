@@ -25,6 +25,12 @@ import com.example.projet20.Localisation;
 import com.example.projet20.R;
 import com.example.projet20.ui.home.HomeFragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
+
 
 public class Match extends Fragment {
     private DBHelper mydb ;
@@ -40,6 +46,7 @@ public class Match extends Fragment {
     private  SQLHelper lala;
     ImageView imageView;
     String date1;
+    Blob image;
     //Mysql d=null;
     public  Match()
     {}
@@ -111,7 +118,7 @@ public class Match extends Fragment {
 
                                     public void run() {
 
-                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique);
+                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,image,imageView);
                                         // lala.ajout(FirstFragment.this.getActivity(),FirstFragment.this.getContext(),Name1.getText().toString(),Name2.getText().toString(),Score.getProgress(),Strength.getProgress());
                                     }
 
@@ -147,7 +154,9 @@ public class Match extends Fragment {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             //Get the capture image
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            //Set the capture image to imageView
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
+
             imageView.setImageBitmap(photo);
         }
 

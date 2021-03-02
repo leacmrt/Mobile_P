@@ -5,8 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import java.sql.Blob;
 import java.sql.Connection;
@@ -26,6 +29,7 @@ public class SQLHelper {
     SeekBar strengthSeek,scoreSeek;
     CalendarView date;
     ProgressDialog pd;
+    ImageView img;
 
     String name1,name2,critique1, dat;
     int strength , score;
@@ -56,21 +60,21 @@ public class SQLHelper {
         System.out.println("Creating statement...");
         stmt = conn.createStatement();
         String sql;
-        sql = "SELECT  Name1, Name2, Score FROM match_data";
+        sql = "SELECT  Name1, Name2,Date FROM match_data";
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println("hi");
         int i =0;
-        //STEP 5: Extract data from result set
+        //STEP 5: Extract data from result et
         while(rs.next()){
             System.out.println("ho");
             //Retrieve by column name
 
-            int age = rs.getInt("Score");
+            String age = rs.getString("Date");
             String first = rs.getString("Name1");
             String last = rs.getString("Name2");
 
 
-            list.add(first + " VS  " + last + " :" + Integer.toString(age));
+            list.add(first + "  VS  " + last + " (" +age+")");
             i++;
 
             //System.out.println(list.get(u));
@@ -200,7 +204,7 @@ public class SQLHelper {
         }
         return list;
     }
-    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique) {
+    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique, Blob image, ImageView imageView) {
 
         a.runOnUiThread(new Runnable() {
             public void run() {
@@ -220,7 +224,7 @@ public class SQLHelper {
         this.strengthSeek=Strength;
         this.scoreSeek=Score;
         this.date=dat1;
-
+        this.img=imageView;
         //GET TEXTS FROM EDITEXTS
         name1=name1Txt.getText().toString();
         name2=name2Txt.getText().toString();
@@ -228,7 +232,7 @@ public class SQLHelper {
         score=scoreSeek.getProgress();
         dat=date1;
         critique1=critiquetxt.getText().toString();
-
+        Blob image1 = image;
 
 
         String SQL = "INSERT INTO match_data(Name1,Name2,Strength,Score,Date,Critique,Photo,Localisation) "
@@ -268,6 +272,8 @@ public class SQLHelper {
             pstmt.setInt(4, score);
             pstmt.setString(5,dat);
             pstmt.setString(6,critique1);
+            pstmt.setBlob(7,image1);
+            pstmt.setString(8,"essai");
 
             int affectedRows = pstmt.executeUpdate();
             a.runOnUiThread(new Runnable() {
@@ -286,6 +292,8 @@ public class SQLHelper {
                         strengthSeek.setProgress(0);
                         scoreSeek.setProgress(0);
                         dat1.setDate(System.currentTimeMillis());
+                        crtique.setText("");
+                        img.setImageBitmap(null);
 
                     }else
                     {
@@ -383,6 +391,32 @@ public class SQLHelper {
         }
         return "unknown";
     }
+    public String getLocalisation(int id) throws ClassNotFoundException {
+        Connection conn = null;
+        Statement stmt = null;
+        String nametmp = null;
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT Localisation FROM match_data WHERE id ="+id+";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String name = rs.getString("Localisation");
+                nametmp=name;
+                return nametmp;
+            }
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return "unknown";
+    }
 
     public Blob getPicture(int id) throws ClassNotFoundException {
         Connection conn = null;
@@ -464,4 +498,7 @@ public class SQLHelper {
         }
         return 0;
     }
+
+   /* public void ajout(FragmentActivity activity, Context context, EditText name1, EditText name2, SeekBar strength, SeekBar score, CalendarView dat, String date1, EditText crtique, Blob image, ImageView imageView) {
+    }*/
 }

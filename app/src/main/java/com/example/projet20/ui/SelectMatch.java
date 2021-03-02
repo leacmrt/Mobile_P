@@ -25,7 +25,7 @@ public class SelectMatch extends Fragment{
     ArrayList<String> listtmp;
     ArrayList<Integer> listid;
     int position,id;
-    String Name1,Name2;
+    String Name1,Name2,Critique,Local;
     int Score,Strength;
     private SQLHelper lala;
 
@@ -55,7 +55,8 @@ public class SelectMatch extends Fragment{
             TextView textName2 = view.findViewById(R.id.textName2);
             TextView textScore = view.findViewById(R.id.textScore);
             TextView textStrength = view.findViewById(R.id.textStrength);
-
+            TextView textCritique = view.findViewById(R.id.textView13);
+            TextView textLocal = view.findViewById(R.id.textView14);
             lala = new SQLHelper();
 
             new Thread(new Runnable() {
@@ -67,13 +68,17 @@ public class SelectMatch extends Fragment{
                         Name2 = lala.getName2(id);
                         Score = lala.getScore(id);
                         Strength = lala.getStrength(id);
+                        Critique=lala.getCritique(id);
+                        Local=lala.getLocalisation(id);
                         SelectMatch.this.getActivity().runOnUiThread(
                                 new Runnable() {
                                  public void run() {
                                 textName1.setText(Name1);
                                 textName2.setText(Name2);
-                                textScore.setText(Integer.toString(Score));
-                                textStrength.setText(Integer.toString(Strength));
+                                textScore.setText(Integer.toString(Strength));
+                                textStrength.setText(Integer.toString(Score  ));
+                                textCritique.setText(Critique);
+                                textLocal.setText(Local);
                             }
                         });
                     } catch (ClassNotFoundException e) {
