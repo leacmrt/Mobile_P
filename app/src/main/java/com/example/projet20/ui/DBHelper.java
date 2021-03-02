@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +17,7 @@ import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-        public static final String DATABASE_NAME = "MyDBName.db1";
+        public static final String DATABASE_NAME = "MyDBName.db2";
         public static final String PROJET_TABLE_NAME = "Projet";
         public static final String PROJET_COLUMN_ID = "id";
         public static final String PROJET_COLUMN_NAME1 = "Name1";
@@ -34,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
             // TODO Auto-generated method stub
             db.execSQL(
                     "create table Projet " +
-                            "(id integer primary key, name1 text,name2 text,score text, strength text,date text)"
+                            "(id integer primary key, name1 text,name2 text,score text, strength text,date text,critique text,localisation text,photo text)"
             );
         }
 
@@ -44,14 +46,24 @@ public class DBHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
 
-        public boolean insertmatch (String name1, String name2, String score, String strength, long date) {
+        public boolean insertmatch (String name1, String name2, String score, String strength, String date1, String toString4, String returnString, Bitmap photo) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
+
+            Bitmap image1 = photo;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            image1.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            byte[] bArray = bos.toByteArray();
+
             contentValues.put("name1", name1);
             contentValues.put("name2", name2);
             contentValues.put("score", score);
             contentValues.put("strength", strength);
-            contentValues.put("date", String.valueOf(new Date(date)));
+            contentValues.put("date", date1);
+            contentValues.put("critique", toString4);
+            contentValues.put("localisation",returnString);
+            contentValues.put("photo",bArray);
+
             db.insert("Projet", null, contentValues);
             return true;
         }
@@ -102,4 +114,5 @@ public class DBHelper extends SQLiteOpenHelper {
             return array_list;
         }
 
-    }
+
+}

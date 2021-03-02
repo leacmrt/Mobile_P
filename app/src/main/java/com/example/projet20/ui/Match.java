@@ -112,7 +112,7 @@ public class Match extends Fragment {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(Match.this.getActivity(),"YOUPI",Toast.LENGTH_LONG).show();
-                                mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),Integer.toString(Strength.getProgress()),dat.getDate());//locale database
+                                mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),Integer.toString(Strength.getProgress()),date1,Crtique.getText().toString(),returnString,photo);//locale database
 
                                 //Sender s=new Sender(FirstFragment.this.getContext(),server_url,Strength,Score,Name1,Name2);
                                 //s.execute();
