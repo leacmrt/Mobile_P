@@ -114,15 +114,13 @@ public class Match extends Fragment {
                                 Toast.makeText(Match.this.getActivity(),"YOUPI",Toast.LENGTH_LONG).show();
                                 mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),Integer.toString(Strength.getProgress()),date1,Crtique.getText().toString(),returnString,photo);//locale database
 
-                                //Sender s=new Sender(FirstFragment.this.getContext(),server_url,Strength,Score,Name1,Name2);
-                                //s.execute();
+
                                 new Thread(new Runnable() {
 
                                     public void run() {
 
-                                      //  lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString);
-                                        // lala.ajout(FirstFragment.this.getActivity(),FirstFragment.this.getContext(),Name1.getText().toString(),Name2.getText().toString(),Score.getProgress(),Strength.getProgress());
-                                    }
+                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString);
+                                         }
 
                                 }).start();
 
