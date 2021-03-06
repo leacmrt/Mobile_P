@@ -120,7 +120,7 @@ public class Match extends Fragment {
 
                                     public void run() {
 
-                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString);
+                                      //  lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString);
                                         // lala.ajout(FirstFragment.this.getActivity(),FirstFragment.this.getContext(),Name1.getText().toString(),Name2.getText().toString(),Score.getProgress(),Strength.getProgress());
                                     }
 

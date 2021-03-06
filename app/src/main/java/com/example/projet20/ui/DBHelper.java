@@ -36,7 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
             // TODO Auto-generated method stub
             db.execSQL(
                     "create table Projet " +
-                            "(id integer primary key, name1 text,name2 text,score text, strength text,date text,critique text,localisation text,photo text)"
+                            "(id integer primary key, name1 text,name2 text,score text, strength text,date text" +
+                            ",critique text,localisation text,photo text)"
             );
         }
 
@@ -46,14 +47,23 @@ public class DBHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
 
-        public boolean insertmatch (String name1, String name2, String score, String strength, String date1, String toString4, String returnString, Bitmap photo) {
+        public boolean insertmatch (String name1, String name2, String score, String strength, String date1,
+                                    String toString4, String returnString, Bitmap photo) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
-
+            byte[] bArray;
             Bitmap image1 = photo;
+            if(image1!=null)
+            {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             image1.compress(Bitmap.CompressFormat.PNG, 100, bos);
-            byte[] bArray = bos.toByteArray();
+            bArray = bos.toByteArray();
+
+            }else  bArray = null;
+            if(numberOfRows()>=5)
+            {
+                deleteMatch(getfiMatch());
+            }
 
             contentValues.put("name1", name1);
             contentValues.put("name2", name2);
@@ -113,6 +123,22 @@ public class DBHelper extends SQLiteOpenHelper {
             }
             return array_list;
         }
+
+    public int getfiMatch() {
+        ArrayList<Integer> array_list = new ArrayList<>();
+
+        //hp = new HashMap();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select id from Projet", null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getInt(res.getColumnIndex(PROJET_COLUMN_ID)));
+            res.moveToNext();
+        }
+        int idtp=array_list.get(0);
+        return idtp;
+    }
 
 
 }

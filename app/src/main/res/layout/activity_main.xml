@@ -20,12 +20,12 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigation_home"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation"
         class="androidx.navigation.fragment.NavHostFragment"
         android:name="com.example.projet20.ui.home.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/mobile_navigation"
         tools:context=".ui.home.HomeFragment"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"

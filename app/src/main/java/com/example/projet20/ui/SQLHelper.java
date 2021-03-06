@@ -278,8 +278,7 @@ public class SQLHelper {
         try (
 
 
-                PreparedStatement pstmt = conn.prepareStatement(SQL,
-                        Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
             Blob blob = pstmt.getConnection().createBlob();
             blob.setBytes(1, bArray);
 
