@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="menu1">220dp</dimen>
+    <dimen name="menu2">40dp</dimen>
+    <dimen name="menu3">16dp</dimen>
+
+    <dimen name="setting1">80dp</dimen>
+    <dimen name="setting2">200dp</dimen>
+    <dimen name="setting3">16dp</dimen>
+
+    <dimen name="stat1">140dp</dimen>
+    <dimen name="stat2">120dp</dimen>
+    <dimen name="stat3">10dp</dimen>
+    <dimen name="stat4">10dp</dimen>
+    <dimen name="stat5">540dp</dimen>
+    <dimen name="stat6">80dp</dimen>
+    <dimen name="stat8">8dp</dimen>
+
+
+    <dimen name="his1">200dp</dimen>
+
+    <dimen name="st1">160dp</dimen>
+    <dimen name="st2">220dp</dimen>
+    <dimen name="st3">80dp</dimen>
+    <dimen name="st4">630dp</dimen>
+    <dimen name="st5">30dp</dimen>
+    <dimen name="st6">610dp</dimen>
+    <dimen name="st7">0dp</dimen>
+    <dimen name="st8">80dp</dimen>
+
+    <dimen name="match1">190dp</dimen>
+    <dimen name="match2">200dp</dimen>
+</resources>

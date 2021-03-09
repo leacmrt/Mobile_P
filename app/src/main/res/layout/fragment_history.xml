@@ -24,7 +24,7 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="341dp"
-        android:layout_height="459dp"
+        android:layout_height="@dimen/his1"
         android:choiceMode="singleChoice"
         android:divider="#FFD5D5"
         android:dividerHeight="1dp"
