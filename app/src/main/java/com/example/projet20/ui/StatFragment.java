@@ -48,7 +48,12 @@ public class StatFragment extends Fragment {
         GraphView graph2 = (GraphView) view.findViewById(R.id.graphView2);
 
 
-
+        view.findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadFragment(new History());
+            }
+        });
 
 
         new Thread(new Runnable() {
@@ -89,5 +94,16 @@ public class StatFragment extends Fragment {
 
         }).start();
 
+    }
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            StatFragment.this.getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
     }
