@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -37,21 +38,27 @@ public class Match extends Fragment {
     private static int CAMERA_REQUEST =123,LOC_REQUEST=121;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     String server_url = "http://10.0.2.2/connect.php";
+
     EditText Name1 =null;
     EditText Name2 = null;
     EditText Crtique =null;
     SeekBar Score =null;
     SeekBar Strength = null;
     CalendarView dat =null;
+    NumberPicker picker1 = null;
+    NumberPicker picker2 =null;
+
     private  SQLHelper lala;
     ImageView imageView;
     String date1;
     Bitmap photo ;
     Blob image;
     String returnString ="Inconnu";
-    //Mysql d=null;
+
+
     public  Match()
     {}
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -64,7 +71,7 @@ public class Match extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mydb = new DBHelper(Match.this.getContext());
-        // connectMySql = new Mysql(FirstFragment.this.getContext());
+
         Name1 =(EditText)view.findViewById(R.id.Name1);
         Name2 = (EditText)view.findViewById(R.id.Name2);
         Score = (SeekBar) view.findViewById(R.id.seekBarScore);
@@ -72,7 +79,18 @@ public class Match extends Fragment {
         dat  = (CalendarView) view.findViewById(R.id.calendarView2); // get the reference of CalendarView
         imageView = (ImageView) view.findViewById(R.id.imageView);
         Crtique= view.findViewById(R.id.Critique);
+        picker1 = view.findViewById(R.id.Score1);
+        picker2 = view.findViewById(R.id.Score2);
+
+        picker1.setMinValue(0);
+        picker1.setMaxValue(9);
+
+        picker2.setMinValue(0);
+        picker2.setMaxValue(9);
+
         lala = new SQLHelper();
+
+
         //show the selected date as a toast
         dat.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             //show the selected date as a toast
@@ -119,7 +137,7 @@ public class Match extends Fragment {
 
                                     public void run() {
 
-                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString);
+                                        lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString,picker1,picker2);
                                          }
 
                                 }).start();

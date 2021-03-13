@@ -28,5 +28,5 @@
     <dimen name="st8">102dp</dimen>
 
     <dimen name="match1">20dp</dimen>
-    <dimen name="match2">8dp</dimen>
+    <dimen name="match2">0dp</dimen>
 </resources>

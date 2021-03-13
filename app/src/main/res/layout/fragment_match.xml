@@ -30,6 +30,21 @@
                 tools:context=".ui.Match">
 
 
+                <NumberPicker
+                    android:id="@+id/Score2"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="28dp"
+                    android:textAlignment="center"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/TextScore2"
+                    app:layout_constraintTop_toBottomOf="@+id/seekBarStrength">
+
+                </NumberPicker>
+
                 <Button
                     android:id="@+id/button_first"
                     android:layout_width="wrap_content"
@@ -58,9 +73,9 @@
                     android:id="@+id/Critique"
                     android:layout_width="217dp"
                     android:layout_height="48dp"
-                    android:layout_marginTop="76dp"
-                    android:layout_marginEnd="48dp"
-                    android:layout_marginRight="48dp"
+                    android:layout_marginTop="120dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
                     android:background="@color/white"
                     android:ems="10"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -70,13 +85,41 @@
                     android:id="@+id/critique"
                     android:layout_width="87dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginLeft="28dp"
-                    android:layout_marginBottom="196dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginBottom="156dp"
                     android:ems="10"
-                    android:text="CRITIQUE"
+                    android:text="@string/critique"
                     app:layout_constraintBottom_toTopOf="@+id/button"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/TextScore2"
+                    android:layout_width="109dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="224dp"
+                    android:layout_marginLeft="224dp"
+                    android:layout_marginTop="30dp"
+                    android:ems="10"
+                    android:text="@string/Score2"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/seekBarStrength" />
+
+                <TextView
+                    android:id="@+id/TextScore1"
+                    android:layout_width="109dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="44dp"
+                    android:ems="10"
+                    android:text="@string/Score1"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/TestStrength" />
 
                 <SeekBar
                     android:id="@+id/seekBarStrength"
@@ -116,24 +159,23 @@
 
                 <TextView
                     android:id="@+id/TestScore"
-                    android:layout_width="74dp"
+                    android:layout_width="87dp"
                     android:layout_height="17dp"
                     android:layout_marginStart="@dimen/match2"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="32dp"
-                    android:ems="10"
-                    android:text="@string/Score"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="28dp"
+                    android:text="@string/Technique"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Name1" />
 
                 <SeekBar
                     android:id="@+id/seekBarScore"
                     style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="291dp"
+                    android:layout_width="302dp"
                     android:layout_height="26dp"
-                    android:layout_marginStart="@dimen/match1"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="28dp"
                     android:max="10"
                     android:progress="0"
                     app:layout_constraintStart_toEndOf="@+id/TestScore"
@@ -142,7 +184,7 @@
                 <TextView
                     android:id="@+id/TestStrength"
                     android:layout_width="87dp"
-                    android:layout_height="0dp"
+                    android:layout_height="17dp"
                     android:layout_marginTop="38dp"
                     android:ems="10"
                     android:text="@string/Strengh"
@@ -152,10 +194,10 @@
 
                 <EditText
                     android:id="@+id/Name1"
-                    android:layout_width="168dp"
-                    android:layout_height="43dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_width="151dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="24dp"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -163,9 +205,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <NumberPicker
+                    android:id="@+id/Score1"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="28dp"
+                    android:textAlignment="center"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/TextScore1"
+                    app:layout_constraintTop_toBottomOf="@+id/seekBarStrength">
+
+                </NumberPicker>
+
                 <EditText
                     android:id="@+id/Name2"
-                    android:layout_width="168dp"
+                    android:layout_width="151dp"
                     android:layout_height="43dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
@@ -181,7 +238,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="20dp" />
+                    app:layout_constraintGuide_begin="-628dp" />
 
                 <ImageView
                     android:id="@+id/imageView"

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -29,12 +30,13 @@ public class SQLHelper {
     // JDBC driver name and database URL
     EditText name1Txt,name2Txt,critiquetxt;
     SeekBar strengthSeek,scoreSeek;
+    NumberPicker pick1,pick2;
     CalendarView date;
     ProgressDialog pd;
     ImageView img;
 
     String name1,name2,critique1, dat,loc;
-    int strength , score;
+    int strength , score,score1,score2;
 
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -184,11 +186,11 @@ public class SQLHelper {
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT Score FROM match_data";
+            sql = "SELECT Technic FROM match_data";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                int id = rs.getInt("Score");
+                int id = rs.getInt("Technic");
                 list.add(id);
             }
 
@@ -206,7 +208,7 @@ public class SQLHelper {
         }
         return list;
     }
-    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique, Bitmap image, ImageView imageView, String returnString) {
+    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique, Bitmap image, ImageView imageView, String returnString, NumberPicker picker1,NumberPicker picker2) {
 
         a.runOnUiThread(new Runnable() {
             public void run() {
@@ -227,12 +229,16 @@ public class SQLHelper {
         this.scoreSeek=Score;
         this.date=dat1;
         this.img=imageView;
+        this.pick1=picker1;
+        this.pick2=picker2;
+
         //GET TEXTS FROM EDITEXTS
         name1=name1Txt.getText().toString();
         name2=name2Txt.getText().toString();
         strength=strengthSeek.getProgress();
         score=scoreSeek.getProgress();
-
+        score1=pick1.getValue();
+        score2=pick2.getValue();
         critique1=critiquetxt.getText().toString();
         loc=returnString;
 
@@ -250,8 +256,8 @@ public class SQLHelper {
         byte[] bArray = bos.toByteArray();
 
 
-        String SQL = "INSERT INTO match_data(Name1,Name2,Strength,Score,Date,Critique,Photo,Localisation) "
-                + "VALUES(?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO match_data(Name1,Name2,Score1,Score2,Strength,Technic,Date,Critique,Photo,Localisation) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 
         try {
@@ -284,12 +290,14 @@ public class SQLHelper {
 
             pstmt.setString(1, name1);
             pstmt.setString(2, name2);
-            pstmt.setInt(3, strength);
-            pstmt.setInt(4, score);
-            pstmt.setString(5,dat);
-            pstmt.setString(6,critique1);
-            pstmt.setBlob(7,blob);
-            pstmt.setString(8,loc);
+            pstmt.setInt(3, score1);
+            pstmt.setInt(4, score2);
+            pstmt.setInt(5, strength);
+            pstmt.setInt(6, score);
+            pstmt.setString(7,dat);
+            pstmt.setString(8,critique1);
+            pstmt.setBlob(9,blob);
+            pstmt.setString(10,loc);
 
             int affectedRows = pstmt.executeUpdate();
             a.runOnUiThread(new Runnable() {
@@ -303,13 +311,15 @@ public class SQLHelper {
                         //SUCCESS
                         Toast.makeText(c,"yes",Toast.LENGTH_LONG).show();
 
-                        name1Txt.setText("");
-                        name2Txt.setText("");
+                        name1Txt.setText("Name 1st Team");
+                        name2Txt.setText("Name 2nd Team");
                         strengthSeek.setProgress(0);
                         scoreSeek.setProgress(0);
                         dat1.setDate(System.currentTimeMillis());
                         crtique.setText("");
                         img.setImageBitmap(null);
+                        picker1.setValue(0);
+                        picker2.setValue(0);
 
                     }else
                     {
@@ -473,11 +483,11 @@ public class SQLHelper {
 
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT Score FROM match_data WHERE id ="+id+";";
+            sql = "SELECT Technic FROM match_data WHERE id ="+id+";";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                int score= rs.getInt("Score");
+                int score= rs.getInt("Technic");
                 scoretmp=score;
                 return scoretmp;
             }
@@ -487,6 +497,60 @@ public class SQLHelper {
         }
         return 0;
     }
+    public int getScore1(int id) throws ClassNotFoundException {
+        Connection conn = null;
+        Statement stmt = null;
+        int scoretmp = 0;
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT Score1 FROM match_data WHERE id ="+id+";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int score= rs.getInt("Score1");
+                scoretmp=score;
+                return scoretmp;
+            }
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getScore2(int id) throws ClassNotFoundException {
+        Connection conn = null;
+        Statement stmt = null;
+        int scoretmp = 0;
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            stmt = conn.createStatement();
+            String sql;
+            sql = "SELECT Score2 FROM match_data WHERE id ="+id+";";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int score= rs.getInt("Score2");
+                scoretmp=score;
+                return scoretmp;
+            }
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
 
     public int getStrength(int id) throws ClassNotFoundException {
         Connection conn = null;

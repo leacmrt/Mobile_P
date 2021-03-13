@@ -34,8 +34,8 @@ public class SelectMatch extends Fragment{
     String Name1,Name2,Critique,Local;
     Blob im;
     Bitmap pho;
+    int Score,Strength,Score1,Score2;
 
-    int Score,Strength;
     private SQLHelper lala;
 
         public  SelectMatch(ArrayList<String> list_rempli,ArrayList<Integer>ListID, int position) {
@@ -67,6 +67,9 @@ public class SelectMatch extends Fragment{
             TextView textCritique = view.findViewById(R.id.textView13);
             TextView textLocal = view.findViewById(R.id.textView14);
             ImageView photo =view.findViewById(R.id.imageView2);
+            TextView textScore1 = view.findViewById(R.id.textName3);
+            TextView textScore2 = view.findViewById(R.id.textName4);
+
             lala = new SQLHelper();
 
             new Thread(new Runnable() {
@@ -81,6 +84,8 @@ public class SelectMatch extends Fragment{
                         Critique=lala.getCritique(id);
                         Local=lala.getLocalisation(id);
                         im =lala.getPicture(id);
+                        Score1=lala.getScore1(id);
+                        Score1=lala.getScore2(id);
 
                         SelectMatch.this.getActivity().runOnUiThread(
                                 new Runnable() {
@@ -98,10 +103,12 @@ public class SelectMatch extends Fragment{
                                 textName1.setText(Name1);
                                 textName2.setText(Name2);
                                 textScore.setText(Integer.toString(Strength));
-                                textStrength.setText(Integer.toString(Score  ));
+                                textStrength.setText(Integer.toString(Score));
                                 textCritique.setText(Critique);
                                 textLocal.setText(Local);
                                 photo.setImageBitmap(pho);
+                                textScore1.setText(Integer.toString(Score1));
+                                textScore2.setText(Integer.toString(Score2));
                             }
                         });
                     } catch (ClassNotFoundException e) {
