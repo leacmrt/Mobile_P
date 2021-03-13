@@ -100,8 +100,8 @@ public class SelectMatch extends Fragment{
                                          throwables.printStackTrace();
                                      }
 
-                                textName1.setText(Name1);
-                                textName2.setText(Name2);
+                                textName1.setText(Name1+" : ");
+                                textName2.setText(Name2+" : ");
                                 textScore.setText(Integer.toString(Strength));
                                 textStrength.setText(Integer.toString(Score));
                                 textCritique.setText(Critique);

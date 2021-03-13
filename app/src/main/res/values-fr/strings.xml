@@ -26,4 +26,9 @@
     <string name="title_activity_maps">Maps</string>
     <string name="settings">PARAMETRES</string>
     <string name="Technique">Technique</string>
+    <string name="critique">CRITIQUE</string>
+    <string name="Score1">Equipe 1 Score</string>
+    <string name="Score2">Equipe 2 Score</string>
+    <string name="Name1">1ere Equipe</string>
+    <string name="Name2">2eme Equipe</string>
 </resources>

@@ -27,9 +27,9 @@
     <string name="title_activity_stat">Stat</string>
     <string name="title_activity_maps">Maps</string>
     <string name="settings">SETTINGS</string>
-    <string name="critique">CRITIQUE</string>
-    <string name="Technique">Technic</string>
-    <string name="Score1">"Team 1 Score "</string>
+    <string name="critique">CRITIC</string>
+    <string name="Technique">Technique</string>
+    <string name="Score1">Team 1 Score</string>
     <string name="Score2">Team 2 Score</string>
     <string name="Name1">First Team</string>
     <string name="Name2">Second Team</string>
