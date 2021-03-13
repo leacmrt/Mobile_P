@@ -11,7 +11,7 @@
     <dimen name="stat1">356dp</dimen>
     <dimen name="stat2">165dp</dimen>
     <dimen name="stat3">72dp</dimen>
-    <dimen name="stat4">172dp</dimen>
+    <dimen name="stat4">152dp</dimen>
     <dimen name="stat5">160dp</dimen>
     <dimen name="stat6">60dp</dimen>
     <dimen name="stat8">160dp</dimen>
@@ -29,4 +29,10 @@
 
     <dimen name="match1">20dp</dimen>
     <dimen name="match2">0dp</dimen>
+    <dimen name="match3">16dp</dimen>
+    <dimen name="match4">212dp</dimen>
+    <dimen name="match5">0dp</dimen>
+    <dimen name="match6">16dp</dimen>
+    <dimen name="match7">4dp</dimen>
+    <dimen name="match8">28dp</dimen>
 </resources>

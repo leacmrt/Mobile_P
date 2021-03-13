@@ -30,4 +30,10 @@
 
     <dimen name="match1">190dp</dimen>
     <dimen name="match2">200dp</dimen>
+    <dimen name="match3">120dp</dimen>
+    <dimen name="match4">430dp</dimen>
+    <dimen name="match5">150dp</dimen>
+    <dimen name="match6">150dp</dimen>
+    <dimen name="match7">370dp</dimen>
+    <dimen name="match8">350dp</dimen>
 </resources>

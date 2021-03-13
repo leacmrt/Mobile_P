@@ -129,8 +129,7 @@ public class Match extends Fragment {
                         .setTitle("Confirmation")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(Match.this.getActivity(),"YOUPI",Toast.LENGTH_LONG).show();
-                                mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),Integer.toString(Strength.getProgress()),date1,Crtique.getText().toString(),returnString,photo);//locale database
+                                mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),Integer.toString(Strength.getProgress()),date1,Crtique.getText().toString(),returnString,photo,picker1.getValue(),picker2.getValue());//locale database
 
 
                                 new Thread(new Runnable() {
@@ -178,7 +177,7 @@ public class Match extends Fragment {
             imageView.setImageBitmap(photo);
         }
 
-        Toast.makeText(Match.this.getActivity(),"la",Toast.LENGTH_LONG).show();
+
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 returnString = data.getStringExtra("keyName");

@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-        public static final String DATABASE_NAME = "MyDBName.db2";
+        public static final String DATABASE_NAME = "MyDBName.db3";
         public static final String PROJET_TABLE_NAME = "Projet";
         public static final String PROJET_COLUMN_ID = "id";
         public static final String PROJET_COLUMN_NAME1 = "Name1";
@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
             // TODO Auto-generated method stub
             db.execSQL(
                     "create table Projet " +
-                            "(id integer primary key, name1 text,name2 text,score text, strength text,date text" +
+                            "(id integer primary key, name1 text,name2 text,score1 text,score2 text ,technique text, strength text,date text" +
                             ",critique text,localisation text,photo text)"
             );
         }
@@ -48,7 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         public boolean insertmatch (String name1, String name2, String score, String strength, String date1,
-                                    String toString4, String returnString, Bitmap photo) {
+                                    String toString4, String returnString, Bitmap photo,int sek1,int sek2) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             byte[] bArray;
@@ -67,7 +67,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
             contentValues.put("name1", name1);
             contentValues.put("name2", name2);
-            contentValues.put("score", score);
+            contentValues.put("score1", sek1);
+            contentValues.put("score2", sek2);
+            contentValues.put("technique", score);
             contentValues.put("strength", strength);
             contentValues.put("date", date1);
             contentValues.put("critique", toString4);
