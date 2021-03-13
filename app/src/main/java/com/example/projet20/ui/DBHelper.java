@@ -60,7 +60,7 @@ public class DBHelper extends SQLiteOpenHelper {
             bArray = bos.toByteArray();
 
             }else  bArray = null;
-            if(numberOfRows()>=5)
+            if(numberOfRows()>5)
             {
                 deleteMatch(getfiMatch());
             }
