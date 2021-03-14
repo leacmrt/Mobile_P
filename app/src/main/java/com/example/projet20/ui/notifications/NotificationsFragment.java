@@ -118,7 +118,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(NotificationsFragment.this.getContext(), modet.toString(),Toast.LENGTH_LONG).show();
+               
 
                 if(Mode.isChecked())
                 {

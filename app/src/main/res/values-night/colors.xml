@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#7A83B3</color>
+    <color name="background">#00041B</color>
     <color name="tab">#264159</color>
     <color name="button">#6A46AA</color>
     <color name="purple_200">#03427A</color>
     <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#DD8DA4</color>
+    <color name="purple_700">#D2D8FA</color>
     <color name="teal_200">#21212121</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#CFD6FF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background1">#8974AE</color>
+    <color name="background2">#8D9E9C</color>
 </resources>
