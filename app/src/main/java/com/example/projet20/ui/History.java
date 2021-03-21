@@ -75,7 +75,7 @@ public class History extends Fragment {
 
                         //R.layout.listView correspond au layout listview que nous avons créé pour configurer l'apparence de la liste
                         //R.layout.textView correspond au textview dans le layout "listview"
-                        
+
 
                         lv.setAdapter(adapter1);}
 

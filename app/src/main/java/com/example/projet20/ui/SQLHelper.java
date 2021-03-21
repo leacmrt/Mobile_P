@@ -267,9 +267,13 @@ public class SQLHelper {
 
         //Conversion de la bitmap en tableau de byte
         Bitmap image1 = image;
+        byte[] bArray;
+        if(image1!=null) //si une photo a été prise (car pas obligatoir)
+        {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         image1.compress(Bitmap.CompressFormat.PNG, 100, bos);//compression
-        byte[] bArray = bos.toByteArray();
+        bArray = bos.toByteArray();
+        }else  bArray = null;
 
 
         String SQL = "INSERT INTO match_data(Name1,Name2,Score1,Score2,Strength,Technic,Date,Critique,Photo,Localisation) "
@@ -303,7 +307,7 @@ public class SQLHelper {
         {
             //conversion du tableau de byte en BLOB ==> nous pouvons maintenant insérer l'image dans la BDD
             Blob blob = pstmt.getConnection().createBlob();
-            blob.setBytes(1, bArray);
+
 
             pstmt.setString(1, name1);//toutes les données sont insérées
             pstmt.setString(2, name2);
@@ -313,7 +317,15 @@ public class SQLHelper {
             pstmt.setInt(6, score);
             pstmt.setString(7,dat);
             pstmt.setString(8,critique1);
-            pstmt.setBlob(9,blob);
+            if(bArray!=null)
+            {
+                blob.setBytes(1, bArray);
+                pstmt.setBlob(9,blob);
+
+            }
+            else {
+                pstmt.setBlob(9,(Blob)null);
+            }
             pstmt.setString(10,loc);
 
             int affectedRows = pstmt.executeUpdate();//execution de la requete

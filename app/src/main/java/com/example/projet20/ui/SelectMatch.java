@@ -103,8 +103,11 @@ public class SelectMatch extends Fragment{
                                      byte[] blobAsBytes = new byte[0];
                                      //Pour la photo: on passe d'un bloc à une bitmap
                                      try {
+                                         if(im!=null)
+                                         {
                                          blobAsBytes = im.getBytes(1, (int) im.length());
-                                         pho = BitmapFactory.decodeByteArray(blobAsBytes,0,blobAsBytes.length);
+                                         pho = BitmapFactory.decodeByteArray(blobAsBytes,0,blobAsBytes.length);}
+                                         else pho =null;
                                      } catch (SQLException throwables) {
                                          throwables.printStackTrace();
                                      }
