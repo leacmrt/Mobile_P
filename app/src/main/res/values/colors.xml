@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Couleurs mode jour -->
 <resources>
     <color name="background">#A9AECF</color>
     <color name="tab">#BF8D8A</color>

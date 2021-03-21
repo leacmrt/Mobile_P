@@ -18,7 +18,7 @@ import com.example.projet20.ui.History;
 import com.example.projet20.ui.Match;
 
 public class HomeFragment extends Fragment {
-
+    //fragment menu ( ouvert quand l'utilisateur click sur le bouton home)
     public HomeFragment(){
 
     }
@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
        view.findViewById(R.id.New).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+             // ouvre le fragment match
              loadFragment(new Match());
 
             }
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.History).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // ouvre le fragment History
                  loadFragment(new History());
 
             }
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment {
 
     private boolean loadFragment(Fragment fragment) {
         //switching fragment
-        if (fragment != null) {
+        if (fragment != null) { // même fonction présente dans l'activité principale
             HomeFragment.this.getActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container, fragment)

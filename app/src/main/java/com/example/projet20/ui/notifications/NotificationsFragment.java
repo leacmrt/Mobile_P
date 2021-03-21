@@ -30,6 +30,7 @@ import java.util.Locale;
 
 public class NotificationsFragment extends Fragment {
 
+    //fragment de paramètre
     Context thiscontext;
     Switch Landscape =null;
     Switch Mode =null;
@@ -53,42 +54,42 @@ public class NotificationsFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Landscape =(Switch) getView().findViewById(R.id.switchLandscape);
+        Landscape =(Switch) getView().findViewById(R.id.switchLandscape); //recupère les 3 switch de changements
         Mode =(Switch) getView().findViewById(R.id.switchDark);
         Lang =(Switch) getView().findViewById(R.id.switchEnglish);
 
-        int la = getResources().getConfiguration().orientation;
+        int la = getResources().getConfiguration().orientation;//orientation de l'application
 
-        if(la==1)
+        if(la==1)//si elle est en mode portrait
         {
-            Landscape.setChecked(false);
+            Landscape.setChecked(false);//initalisation couleur + texte
             Landscape.setTextColor(Color.BLUE);
             Landscape.setText("OFF");
 
-        }else if(la==2)
+        }else if(la==2)//si elle est en mode paysage
         {
-            Landscape.setChecked(true);
+            Landscape.setChecked(true);//pareil mais en version VRAIE
             Landscape.setTextColor(Color.GREEN);
             Landscape.setText("ON");
         }
 
 
-        Landscape.setOnClickListener(new View.OnClickListener()
+        Landscape.setOnClickListener(new View.OnClickListener()//bouton switch pour changer l'orientation
         {
             @Override
             public void onClick(View v)
             {
                 Toast.makeText(NotificationsFragment.this.getActivity(), String.valueOf(la),Toast.LENGTH_LONG).show();
-                if(Landscape.isChecked())
+                if(Landscape.isChecked())//si il passe en mode "ON" donc paysage
                 {
 
                     Landscape.setTextColor(Color.GREEN);
                     Landscape.setText("ON");
                     NotificationsFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    //on change l'oriangation à l'aide de SetRequestedOrientation
 
                 }else
-                {
+                {    //situation inverse
                     Landscape.setTextColor(Color.BLUE);
                     Landscape.setText("OFF");
                     NotificationsFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);}
@@ -96,15 +97,15 @@ public class NotificationsFragment extends Fragment {
         });
 
         Drawable modet = (Drawable) ((ConstraintLayout)getView().findViewById(R.id.test)).getBackground();
-        int mode = AppCompatDelegate.getDefaultNightMode();
+        int mode = AppCompatDelegate.getDefaultNightMode();//recupère le mode de couleur utlisé
 
-        if(mode==1)
+        if(mode==1)//cas mode jour
         {
             Mode.setChecked(false);
             Mode.setTextColor(Color.BLUE);
             Mode.setText("OFF");
 
-        }else if(mode==2)
+        }else if(mode==2)//cas mode nuit
         {
             Mode.setChecked(true);
             Mode.setTextColor(Color.GREEN);
@@ -112,7 +113,7 @@ public class NotificationsFragment extends Fragment {
         }
 
 
-        Mode.setOnClickListener(new View.OnClickListener()
+        Mode.setOnClickListener(new View.OnClickListener()//boutton switch pour changer le mode de couleur
         {
 
             @Override
@@ -120,7 +121,7 @@ public class NotificationsFragment extends Fragment {
             {
 
 
-                if(Mode.isChecked())
+                if(Mode.isChecked())//si le mode nuit devient "ON"
                 {
 
                     Mode.setTextColor(Color.GREEN);
@@ -128,10 +129,10 @@ public class NotificationsFragment extends Fragment {
                    AppCompatDelegate
                             .setDefaultNightMode(
                                     AppCompatDelegate
-                                            .MODE_NIGHT_YES);
+                                            .MODE_NIGHT_YES);//Utilisation de APPcompatDelegate.setDefaultNightMode pour activer le mode nuit
                     // FragmentSetting.this.getActivity().recreate();
 
-                }else if(!Mode.isChecked())
+                }else if(!Mode.isChecked())//Situation contraire
                 {
                     Mode.setTextColor(Color.BLUE);
                     Mode.setText("OFF");
@@ -146,14 +147,16 @@ public class NotificationsFragment extends Fragment {
         });
 
         String langt = (String) ((TextView)getView().findViewById(R.id.textView)).getText();
-        //Toast.makeText(MainActivity.this, blankFragment.getTag(),Toast.LENGTH_LONG).show();
-        if(langt.equals("French"))
+        //Pour savoir dans quelle mode de langue l'activité est en ce moment
+        //On prend le texte de changment de langue
+
+        if(langt.equals("French"))//si il est en anglais(=French) cela veut dire que l'application est en anglais
         {
             Lang.setChecked(false);
             Lang.setTextColor(Color.BLUE);
             Lang.setText("OFF");
 
-        }else if(langt.equals("Anglais"))
+        }else if(langt.equals("Anglais"))//contraire
         {
             Lang.setChecked(true);
             Lang.setTextColor(Color.GREEN);
@@ -161,7 +164,7 @@ public class NotificationsFragment extends Fragment {
         }
 
 
-        Lang.setOnClickListener(new View.OnClickListener()
+        Lang.setOnClickListener(new View.OnClickListener()//boutton switch pour changer la langue
         {
 
             @Override
@@ -169,18 +172,19 @@ public class NotificationsFragment extends Fragment {
             {
 
 
-                if(Lang.isChecked())
+                if(Lang.isChecked())//si la langue devient anglais
                 {
 
 
                     Lang.setTextColor(Color.GREEN);
                     Lang.setText("ON");
-                    // LocaleHelper.setLocale(thiscontext,"fr"); //for french;
-                    LocaleHelper.setLocale(NotificationsFragment.this.getActivity().getBaseContext(),"fr");
-                    NotificationsFragment.this.getActivity().recreate();
-                    // LocaleHelper.setLocale(la.getContext(),"fr");
 
-                }else if(!Lang.isChecked())
+                    LocaleHelper.setLocale(NotificationsFragment.this.getActivity().getBaseContext(),"fr");
+                    //utilisation de la classe LocaleHelper pour avec comme paramètre "fr"
+                    NotificationsFragment.this.getActivity().recreate();//on doit recréer l'app pour que les changement soient prit en compte
+
+
+                }else if(!Lang.isChecked())//cas contraire
                 {
                     Lang.setTextColor(Color.BLUE);
                     Lang.setText("OFF");
@@ -194,7 +198,7 @@ public class NotificationsFragment extends Fragment {
 
 
     }
-    public static class LocaleHelper {
+    public static class LocaleHelper { //classe utilisée pour changer la langue de l'app
 
         private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
 
@@ -219,7 +223,7 @@ public class NotificationsFragment extends Fragment {
             return getPersistedData(context, Locale.getDefault().getLanguage());
         }
 
-        public static void setLocale(Context context, String language) {
+        public static void setLocale(Context context, String language) { //la fonction qu'on utilise
             persist(context, language);
             updateResources(context, language);
         }
@@ -233,12 +237,12 @@ public class NotificationsFragment extends Fragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor editor = preferences.edit();
 
-            editor.putString(SELECTED_LANGUAGE, language);
+            editor.putString(SELECTED_LANGUAGE, language);//applique le langage choisis
             editor.apply();
         }
 
         private static void updateResources(Context context, String language) {
-            Locale locale = new Locale(language);
+            Locale locale = new Locale(language); //update nos choix
             Locale.setDefault(locale);
 
             Resources resources = context.getResources();
@@ -246,7 +250,7 @@ public class NotificationsFragment extends Fragment {
             Configuration configuration = resources.getConfiguration();
             configuration.locale = locale;
 
-            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());//jusqu'à la configuration
 
 
         }

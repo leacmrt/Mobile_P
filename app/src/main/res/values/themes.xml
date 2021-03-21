@@ -1,3 +1,4 @@
+<!-- Theme couleurs de jour -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Projet20" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

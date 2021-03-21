@@ -26,8 +26,10 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 
 public class SQLHelper {
+//Classe utilisée pour accéder à la BDD externe Mysql
 
-    // JDBC driver name and database URL
+
+    //Element de récupération des données envoyées par l'utilisateur
     EditText name1Txt,name2Txt,critiquetxt;
     SeekBar strengthSeek,scoreSeek;
     NumberPicker pick1,pick2;
@@ -38,39 +40,42 @@ public class SQLHelper {
     String name1,name2,critique1, dat,loc;
     int strength , score,score1,score2;
 
-
+    //Driver
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    //Lien pour accèder au projet ; Nom = projet
     static final String DB_URL = "jdbc:mysql://10.0.2.2:3306/projet?autoReconnect=true";
 
     //  Database credentials
     static final String USER = "root";
     static final String PASS = "";
 
-    public ArrayList<String> coucou(Context c) {
-    Connection conn = null;
+
+    public ArrayList<String> coucou(Context c)//Fonction qui récupère Les 2 Noms + date d'un match
+    {
+    Connection conn = null;//initialisation
     Statement stmt = null;
     ArrayList<String> list = new ArrayList<String>();
-        System.out.println("hehe");
+        //System.out.println("hehe");
         try{
 
         Class.forName("com.mysql.jdbc.Driver");
         System.out.println("Connecting to database...");
-        conn = DriverManager.getConnection(DB_URL,USER,PASS);
-           /* conn =
-                    DriverManager.getConnection("jdbc:mysql://10.0.2.2:3306/projet?" +
-                            "user=root&password=");*/
+        conn = DriverManager.getConnection(DB_URL,USER,PASS);//connection à la base de donnée
 
-        //STEP 4: Execute a query
+
+
         System.out.println("Creating statement...");
-        stmt = conn.createStatement();
+
+        stmt = conn.createStatement();//Création du statement
         String sql;
-        sql = "SELECT  Name1, Name2,Date FROM match_data";
-        ResultSet rs = stmt.executeQuery(sql);
-        System.out.println("hi");
+        sql = "SELECT  Name1, Name2,Date FROM match_data";//Requete SQL
+        ResultSet rs = stmt.executeQuery(sql);//Execution de la requete
+
         int i =0;
-        //STEP 5: Extract data from result et
-        while(rs.next()){
-            System.out.println("ho");
+        //Extraction de la data du resultat de la requette
+        while(rs.next())
+        {
+
             //Retrieve by column name
 
             String age = rs.getString("Date");
@@ -78,18 +83,19 @@ public class SQLHelper {
             String last = rs.getString("Name2");
 
 
-            list.add(first + "  VS  " + last + " (" +age+")");
+            list.add(first + "  VS  " + last + " (" +age+")");//ajout des données sous la forme voulue
             i++;
 
-            //System.out.println(list.get(u));
 
 
         }
-        //STEP 6: Clean-up environment
+        //Clean-up environment
         rs.close();
         stmt.close();
         conn.close();
         return list;
+
+
     }catch(SQLException ex) {
         // handle any errors
         System.out.println("SQLException: " + ex.getMessage());
@@ -104,7 +110,10 @@ public class SQLHelper {
         System.out.println("Goodbye!");
         return list;
 }//end main
-    public ArrayList<Integer> getallID(Context c) {
+
+
+    public ArrayList<Integer> getallID(Context c) //Recupère tout les ID des matchs dans la BDD
+    {
         Connection conn = null;
         Statement stmt = null;
         ArrayList<Integer> list = new ArrayList<>();
@@ -139,7 +148,8 @@ public class SQLHelper {
         return list;
     }
 
-    public ArrayList<Integer> getallStrength(Context c) {
+    public ArrayList<Integer> getallStrength(Context c) //Recupere toutes les "forces" des matchs
+    {
         Connection conn = null;
         Statement stmt = null;
         ArrayList<Integer> list = new ArrayList<>();
@@ -174,7 +184,8 @@ public class SQLHelper {
         return list;
     }
 
-    public ArrayList<Integer> getallScore(Context c) {
+    public ArrayList<Integer> getallScore(Context c)//Recupere tous les scores des matchs
+    {
         Connection conn = null;
         Statement stmt = null;
         ArrayList<Integer> list = new ArrayList<>();
@@ -211,8 +222,10 @@ public class SQLHelper {
     }
     public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1,
                       EditText crtique, Bitmap image, ImageView imageView, String returnString, NumberPicker picker1,NumberPicker picker2) {
+      //Fonction d'ajout d'un match dans la base de données
 
-        a.runOnUiThread(new Runnable() {
+
+        a.runOnUiThread(new Runnable() {//sur la thread principale , rond de chargement
             public void run() {
                 pd = new ProgressDialog(c);
                 pd.setTitle("Send");
@@ -245,21 +258,22 @@ public class SQLHelper {
         loc=returnString;
 
 
-        if(date1==null)
+        if(date1==null)//si la date n'a pas été pr"cisé
         {
             long stuff = date.getDate();
             Date jsp = new Date(stuff);
             dat =jsp.toString();
         }else dat=date1;
-        
+
+        //Conversion de la bitmap en tableau de byte
         Bitmap image1 = image;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        image1.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        image1.compress(Bitmap.CompressFormat.PNG, 100, bos);//compression
         byte[] bArray = bos.toByteArray();
 
 
         String SQL = "INSERT INTO match_data(Name1,Name2,Score1,Score2,Strength,Technic,Date,Critique,Photo,Localisation) "
-                + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+                + "VALUES(?,?,?,?,?,?,?,?,?,?)";//Requete SQL
 
 
         try {
@@ -285,11 +299,13 @@ public class SQLHelper {
 
         try (
 
-                PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS))//ici nous utlisons un prepared Statement pour plus de sureté
+        {
+            //conversion du tableau de byte en BLOB ==> nous pouvons maintenant insérer l'image dans la BDD
             Blob blob = pstmt.getConnection().createBlob();
             blob.setBytes(1, bArray);
 
-            pstmt.setString(1, name1);
+            pstmt.setString(1, name1);//toutes les données sont insérées
             pstmt.setString(2, name2);
             pstmt.setInt(3, score1);
             pstmt.setInt(4, score2);
@@ -300,17 +316,18 @@ public class SQLHelper {
             pstmt.setBlob(9,blob);
             pstmt.setString(10,loc);
 
-            int affectedRows = pstmt.executeUpdate();
-            a.runOnUiThread(new Runnable() {
+            int affectedRows = pstmt.executeUpdate();//execution de la requete
+
+            a.runOnUiThread(new Runnable() {//dans la thread principales
                 public void run() {
 
 
-                    pd.dismiss();
+                    pd.dismiss();//le rond de chargement finit de charger
 
                     if(affectedRows!= 0)
                     {
                         //SUCCESS
-
+                        //Re-initialisation de tout les composants
                         name1Txt.setText("Name 1st Team");
                         name2Txt.setText("Name 2nd Team");
                         strengthSeek.setProgress(0);
@@ -338,7 +355,7 @@ public class SQLHelper {
 
     }
 
-    public String getName1(int id) throws ClassNotFoundException {
+    public String getName1(int id) throws ClassNotFoundException { //recupère un nom1 en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         String nametmp = null;
@@ -365,7 +382,7 @@ public class SQLHelper {
       return "unknown";
     }
 
-    public String getName2(int id) throws ClassNotFoundException {
+    public String getName2(int id) throws ClassNotFoundException { //recupère un nom2 en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         String nametmp = null;
@@ -391,7 +408,7 @@ public class SQLHelper {
         }
         return "unknown";
     }
-    public String getCritique(int id) throws ClassNotFoundException {
+    public String getCritique(int id) throws ClassNotFoundException { //recupère une critique en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         String nametmp = null;
@@ -417,7 +434,7 @@ public class SQLHelper {
         }
         return "unknown";
     }
-    public String getLocalisation(int id) throws ClassNotFoundException {
+    public String getLocalisation(int id) throws ClassNotFoundException { //recupère unne localisation en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         String nametmp = null;
@@ -444,7 +461,7 @@ public class SQLHelper {
         return "unknown";
     }
 
-    public Blob getPicture(int id) throws ClassNotFoundException {
+    public Blob getPicture(int id) throws ClassNotFoundException { //recupère d'une photo en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         Blob nametmp = null;
@@ -471,7 +488,7 @@ public class SQLHelper {
         return null;
     }
 
-    public int getScore(int id) throws ClassNotFoundException {
+    public int getScore(int id) throws ClassNotFoundException { //recupère une technique en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         int scoretmp = 0;
@@ -497,7 +514,7 @@ public class SQLHelper {
         }
         return 0;
     }
-    public int getScore1(int id) throws ClassNotFoundException {
+    public int getScore1(int id) throws ClassNotFoundException { //recupère un score1 en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         int scoretmp = 0;
@@ -524,7 +541,7 @@ public class SQLHelper {
         return 0;
     }
 
-    public int getScore2(int id) throws ClassNotFoundException {
+    public int getScore2(int id) throws ClassNotFoundException {//recupère un score2 en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         int scoretmp = 0;
@@ -552,7 +569,7 @@ public class SQLHelper {
     }
 
 
-    public int getStrength(int id) throws ClassNotFoundException {
+    public int getStrength(int id) throws ClassNotFoundException {//recupère une force en fonction de l'id
         Connection conn = null;
         Statement stmt = null;
         int scoretmp = 0;

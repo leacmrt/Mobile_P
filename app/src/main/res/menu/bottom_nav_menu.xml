@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Menu utilisé en bas de l'écran de l'application-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
