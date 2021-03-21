@@ -34,6 +34,7 @@ import java.sql.SQLException;
 
 
 public class Match extends Fragment {
+ //Classe pour ajouter un match
     private DBHelper mydb ;
     
     // Variable choisie arbitrairement permettant d'identifier l'intent que l'on va retoruner lors de l'appel de la fonction.
@@ -41,6 +42,8 @@ public class Match extends Fragment {
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     String server_url = "http://10.0.2.2/connect.php";
 
+
+    //inputs
     EditText Name1 =null;
     EditText Name2 = null;
     EditText Crtique =null;
@@ -84,20 +87,21 @@ public class Match extends Fragment {
         picker1 = view.findViewById(R.id.Score1);
         picker2 = view.findViewById(R.id.Score2);
 
-        picker1.setMinValue(0);
+        picker1.setMinValue(0);//Caracteristiques des NumberPickers
         picker1.setMaxValue(9);
 
         picker2.setMinValue(0);
         picker2.setMaxValue(9);
 
-        lala = new SQLHelper();
+        lala = new SQLHelper();//Acces à la BDD Mysql
 
 
-        //show the selected date as a toast
+
         dat.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            //show the selected date as a toast
+
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
+                //String de la date choisie dans le calendrier si changement est fait
                 date1= day + "/" + month + "/" + year;
             }
         });
@@ -119,45 +123,51 @@ public class Match extends Fragment {
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new History());
+                loadFragment(new History());//passe au fragment history
             }
         });
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Match.this.getActivity(), Localisation.class);
-                startActivityForResult(intent1, SECOND_ACTIVITY_REQUEST_CODE);        }
+                Intent intent1 = new Intent(Match.this.getActivity(), Localisation.class); //Ouvre l'activité localisation
+                startActivityForResult(intent1, SECOND_ACTIVITY_REQUEST_CODE);
+            }
         });
 
         view.findViewById(R.id.NEW_Match).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(Match.this.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(Match.this.getContext());//Création d'une fenètre d'alèrte
                 builder.setMessage("Are you sure ?")
                         .setTitle("Confirmation")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener()//Si choix = oui
+                        {
                             public void onClick(DialogInterface dialog, int id) {
+
+                                //Insertion dans la BDD SQLite du match (voir classe DBHelper pour la fonction)
                                 mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),
                                         Integer.toString(Strength.getProgress()),date1,
                                         Crtique.getText().toString(),returnString,photo,picker1.getValue(),picker2.getValue());//locale database
 
 
-                                new Thread(new Runnable() {
+                                new Thread(new Runnable() //dans une nouvelle thread (obligée pour MYSQL )
+                                {
 
                                     public void run() {
-
+                                    //Insertion dans la BDD MYSQL du match ( voir classe SQLHelper)
                                         lala.ajout(Match.this.getActivity(),Match.this.getContext(),Name1,Name2,Strength,Score,dat,date1,Crtique,photo,imageView,returnString,picker1,picker2);
                                          }
 
-                                }).start();
+                                }).start();//lancement de la thread
 
 
                             }
                         })
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() //si choix = NON
+                        {
                             public void onClick(DialogInterface dialog, int id) {
-                                Toast.makeText(Match.this.getActivity(),"Ah ok",Toast.LENGTH_LONG).show();
+                                Toast.makeText(Match.this.getActivity(),"Ah ok",Toast.LENGTH_LONG).show();//Simple toast
                             }
                         });
 
@@ -166,7 +176,8 @@ public class Match extends Fragment {
             }
         });
     }
-    private boolean loadFragment(Fragment fragment) {
+    private boolean loadFragment(Fragment fragment) //Fonction changement de fragment
+    {
         //switching fragment
         if (fragment != null) {
             Match.this.getActivity().getSupportFragmentManager()

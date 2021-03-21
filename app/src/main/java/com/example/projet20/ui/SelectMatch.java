@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 
 public class SelectMatch extends Fragment{
+ //Classe pour l'affichage d'un match selectionné
+
     ArrayList<String> listtmp;
     ArrayList<Integer> listid;
     int position,id;
@@ -38,7 +40,9 @@ public class SelectMatch extends Fragment{
 
     private SQLHelper lala;
 
-        public  SelectMatch(ArrayList<String> list_rempli,ArrayList<Integer>ListID, int position) {
+        public  SelectMatch(ArrayList<String> list_rempli,ArrayList<Integer>ListID, int position)
+        {
+            //Constructeur : recupère la liste de tout les match, la liste de tout les ID et l'id du match
             listtmp=list_rempli;
             listid=ListID;
             id=listid.get(position);
@@ -59,6 +63,7 @@ public class SelectMatch extends Fragment{
 
             //Toast.makeText(SelectMatch.this.getContext(),Integer.toString(id),Toast.LENGTH_LONG).show();
 
+            //Composants d'affichage
             final TextView textView = view.findViewById(R.id.textview_second);
             TextView textName1 = view.findViewById(R.id.textName);
             TextView textName2 = view.findViewById(R.id.textName2);
@@ -70,13 +75,16 @@ public class SelectMatch extends Fragment{
             TextView textScore1 = view.findViewById(R.id.textName3);
             TextView textScore2 = view.findViewById(R.id.textName4);
 
-            lala = new SQLHelper();
+            lala = new SQLHelper();//accès à la base de donnée externe
 
-            new Thread(new Runnable() {
+            new Thread(new Runnable() //dans une nouvelle thread (obligé pour acceder à MYSQL
+            {
 
                 public void run() {
 
                     try {
+                        //à l'aide des fonctions implémentées dans la classe SQLHelper , on recupère toutes les données d'un match precis avec son ID
+
                         Name1 = lala.getName1(id);
                         Name2 = lala.getName2(id);
                         Score = lala.getScore(id);
@@ -93,6 +101,7 @@ public class SelectMatch extends Fragment{
 
 
                                      byte[] blobAsBytes = new byte[0];
+                                     //Pour la photo: on passe d'un bloc à une bitmap
                                      try {
                                          blobAsBytes = im.getBytes(1, (int) im.length());
                                          pho = BitmapFactory.decodeByteArray(blobAsBytes,0,blobAsBytes.length);
@@ -100,6 +109,7 @@ public class SelectMatch extends Fragment{
                                          throwables.printStackTrace();
                                      }
 
+                                 //affichage des resultats obtenus
                                 textName1.setText(Name1+" : ");
                                 textName2.setText(Name2+" : ");
                                 textScore.setText(Integer.toString(Strength));
@@ -122,11 +132,12 @@ public class SelectMatch extends Fragment{
             view.findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    loadFragment(new History());
+                    loadFragment(new History()); //passe au fragment history
                 }
             });
         }
-        private boolean loadFragment(Fragment fragment) {
+        private boolean loadFragment(Fragment fragment) //fonction pour changer de fragment
+        {
             //switching fragment
             if (fragment != null) {
                 SelectMatch.this.getActivity().getSupportFragmentManager()

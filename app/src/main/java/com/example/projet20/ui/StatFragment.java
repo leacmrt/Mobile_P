@@ -43,46 +43,56 @@ public class StatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-        sql = new SQLHelper();
-        GraphView graph = (GraphView) view.findViewById(R.id.graphView);
-        GraphView graph2 = (GraphView) view.findViewById(R.id.graphView2);
+        sql = new SQLHelper();//accès à la base de donnée MYSQL
+
+        GraphView graph = (GraphView) view.findViewById(R.id.graphView);//graph technique
+        GraphView graph2 = (GraphView) view.findViewById(R.id.graphView2);//graph force
 
 
         view.findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadFragment(new History());
+                loadFragment(new History()); //changement pour le fragment history
             }
         });
 
 
-        new Thread(new Runnable() {
+        new Thread(new Runnable() {//dans une nouvelle thread
 
             public void run() {
-                listStrength = sql.getallStrength(StatFragment.this.getContext());
-                listScore=sql.getallScore(StatFragment.this.getContext());
+
+                listStrength = sql.getallStrength(StatFragment.this.getContext());//Tableau remplis de toutes les forces
+                listScore = sql.getallScore(StatFragment.this.getContext());//tableau remplis de toutes les technques
+                //les 2 sont récupérés à partir la BDD externe MYSQL
+
                 int taille = listStrength.size();
                 int tailleS = listScore.size();
-                DataPoint [] test  = new DataPoint [taille];
+
+                DataPoint [] test  = new DataPoint [taille];//création de 2 tableaux de datapoints
                 DataPoint [] testS  = new DataPoint [tailleS];
-                        for(int i=0;i<listStrength.size();i++)
+
+                        for(int i=0;i<listStrength.size();i++)//remplissage des datapoints à l'aide des données
                         {
                            DataPoint ho= new DataPoint(i,listStrength.get(i));
                            test[i]=ho;
                         }
 
-                for(int i=0;i<listScore.size();i++)
-                {
-                    DataPoint ho= new DataPoint(i,listScore.get(i));
-                    testS[i]=ho;
-                }
+                        for(int i=0;i<listScore.size();i++)
+                        {
+                            DataPoint ho= new DataPoint(i,listScore.get(i));
+                            testS[i]=ho;
+                        }
 
-               StatFragment.this.getActivity().runOnUiThread(new Runnable() {
+               StatFragment.this.getActivity().runOnUiThread(new Runnable() //dans la thread principale
+               {
 
                     @Override
                     public void run() {
+                        //2 Graph series remplis de nos tableaux de datapoints
                         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(test);
                         LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(testS);
+
+                        //Ajout des series dans les graphs
                         graph.addSeries(series1);
                         graph2.addSeries(series);
 
@@ -95,7 +105,8 @@ public class StatFragment extends Fragment {
         }).start();
 
     }
-    private boolean loadFragment(Fragment fragment) {
+    private boolean loadFragment(Fragment fragment)//fonction de changement de fragment
+    {
         //switching fragment
         if (fragment != null) {
             StatFragment.this.getActivity().getSupportFragmentManager()
