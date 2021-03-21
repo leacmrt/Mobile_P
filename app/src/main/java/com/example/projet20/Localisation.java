@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 //import fr.android.mapsi.R;
+//test
 
 public class Localisation extends FragmentActivity implements OnMapReadyCallback, LocationListener {
     private GoogleMap mMap;
