@@ -35,6 +35,8 @@ import java.sql.SQLException;
 
 public class Match extends Fragment {
     private DBHelper mydb ;
+    
+    // Variable choisie arbitrairement permettant d'identifier l'intent que l'on va retoruner lors de l'appel de la fonction.
     private static int CAMERA_REQUEST =123,LOC_REQUEST=121;
     private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     String server_url = "http://10.0.2.2/connect.php";
@@ -102,7 +104,14 @@ public class Match extends Fragment {
         view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*Intent permet de start la caméra et capturer les images
+                MediaStore.ACTION_IMAGE_CAPTURE est utilisé pour lancer l’application
+                de caméra existante sur notre téléphone. Ici, on a un intent qui permet
+                de renvoyer l’image capturé par la caméra.*/
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                /*lance une activité pour laquelle on veut récupérer le résultat. 
+                Si cette activité existe, la méthode onActivityResult() sera appelé 
+                grâce au requestCode (CAMERA_REQUEST ici) */
                 startActivityForResult(intent,CAMERA_REQUEST);
             }
         });
@@ -168,14 +177,22 @@ public class Match extends Fragment {
         }
         return false;
     }
+    
+    /*Cette méthode est appelée lorsque l’activité qu’on a lance précédement existe.
+    Elle nous rend le requestCode (CAMERA_REQUEST, l’integer fourni au debut permettant
+    d’identifier de qui provient le résultat )
+    , le resultCode (RESULT_OK) et quelconque data additionnel. */
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //Cette ligne check si le résultat est successful.
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             //Get the capture image
+            //on recupere l’image capturé sous format Bitmap
             photo = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, bos);
-
+            //affiche la photo dans l’objet imageView
             imageView.setImageBitmap(photo);
         }
 
