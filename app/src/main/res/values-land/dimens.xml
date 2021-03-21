@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Dimension pour les fragments lenu, setting, statistiques, historique ,select match et match pour l'orientation paysage  -->
 <resources>
     <dimen name="menu1">220dp</dimen>
     <dimen name="menu2">40dp</dimen>

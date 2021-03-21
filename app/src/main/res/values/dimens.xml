@@ -1,5 +1,5 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Dimension pour les fragments lenu, setting, statistiques, historique ,select match et match pour l'orientation portrait  -->
     <dimen name="menu1">190dp</dimen>/
     <dimen name="menu2">115dp</dimen>
     <dimen name="menu3">16dp</dimen>
