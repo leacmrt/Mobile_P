@@ -198,6 +198,7 @@ public class SQLHelper {
             stmt.close();
             conn.close();
             return list;
+
         }catch(SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
@@ -208,7 +209,8 @@ public class SQLHelper {
         }
         return list;
     }
-    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1, EditText crtique, Bitmap image, ImageView imageView, String returnString, NumberPicker picker1,NumberPicker picker2) {
+    public void ajout(Activity a, Context c, EditText Name1, EditText Name2, SeekBar Score, SeekBar Strength, CalendarView dat1, String date1,
+                      EditText crtique, Bitmap image, ImageView imageView, String returnString, NumberPicker picker1,NumberPicker picker2) {
 
         a.runOnUiThread(new Runnable() {
             public void run() {
@@ -283,7 +285,6 @@ public class SQLHelper {
 
         try (
 
-
                 PreparedStatement pstmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
             Blob blob = pstmt.getConnection().createBlob();
             blob.setBytes(1, bArray);
@@ -309,7 +310,6 @@ public class SQLHelper {
                     if(affectedRows!= 0)
                     {
                         //SUCCESS
-                        Toast.makeText(c,"yes",Toast.LENGTH_LONG).show();
 
                         name1Txt.setText("Name 1st Team");
                         name2Txt.setText("Name 2nd Team");

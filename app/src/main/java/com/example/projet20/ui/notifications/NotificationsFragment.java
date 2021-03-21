@@ -118,7 +118,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-               
+
 
                 if(Mode.isChecked())
                 {

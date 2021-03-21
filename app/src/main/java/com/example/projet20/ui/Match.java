@@ -129,7 +129,9 @@ public class Match extends Fragment {
                         .setTitle("Confirmation")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),Integer.toString(Strength.getProgress()),date1,Crtique.getText().toString(),returnString,photo,picker1.getValue(),picker2.getValue());//locale database
+                                mydb.insertmatch(Name1.getText().toString(),Name2.getText().toString(), Integer.toString(Score.getProgress()),
+                                        Integer.toString(Strength.getProgress()),date1,
+                                        Crtique.getText().toString(),returnString,photo,picker1.getValue(),picker2.getValue());//locale database
 
 
                                 new Thread(new Runnable() {
