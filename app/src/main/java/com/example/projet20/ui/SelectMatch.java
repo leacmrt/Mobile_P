@@ -27,7 +27,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class SelectMatch extends Fragment{
+public class SelectMatch extends Fragment
+{
  //Classe pour l'affichage d'un match selectionné
 
     ArrayList<String> listtmp;
@@ -95,22 +96,24 @@ public class SelectMatch extends Fragment{
                         Score1=lala.getScore1(id);
                         Score1=lala.getScore2(id);
 
+
+                        byte[] blobAsBytes = new byte[0];
+                        //Pour la photo: on passe d'un bloc à une bitmap
+                        try {
+                            if(im!=null)
+                            {
+                                blobAsBytes = im.getBytes(1, (int) im.length());
+                                pho = BitmapFactory.decodeByteArray(blobAsBytes,0,blobAsBytes.length);}
+                            else pho =null;
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
                         SelectMatch.this.getActivity().runOnUiThread(
                                 new Runnable() {
                                  public void run() {
 
 
-                                     byte[] blobAsBytes = new byte[0];
-                                     //Pour la photo: on passe d'un bloc à une bitmap
-                                     try {
-                                         if(im!=null)
-                                         {
-                                         blobAsBytes = im.getBytes(1, (int) im.length());
-                                         pho = BitmapFactory.decodeByteArray(blobAsBytes,0,blobAsBytes.length);}
-                                         else pho =null;
-                                     } catch (SQLException throwables) {
-                                         throwables.printStackTrace();
-                                     }
 
                                  //affichage des resultats obtenus
                                 textName1.setText(Name1+" : ");

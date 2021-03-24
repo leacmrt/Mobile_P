@@ -212,7 +212,7 @@ public class Match extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 returnString = data.getStringExtra("keyName");
                 Toast.makeText(Match.this.getActivity(),returnString,Toast.LENGTH_LONG).show();
-                Toast.makeText(Match.this.getActivity(),"lala",Toast.LENGTH_LONG).show();
+             //   Toast.makeText(Match.this.getActivity(),"lala",Toast.LENGTH_LONG).show();
             }
         }
 }
